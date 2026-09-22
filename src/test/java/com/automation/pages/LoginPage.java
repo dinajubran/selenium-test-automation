@@ -3,34 +3,40 @@ package com.automation.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+public class LoginPage extends BasePage{
 
-    private final WebDriver driver;
-
-    private final String USERNAME_FIELD = "input[placeholder='Username']";
-    private final String PASSWORD_FIELD = "input[placeholder='Password']";
-    private final String LOGIN_BUTTON = "button[type='submit']";
-    private final String LOGIN_ERROR = "div[role='alert']";
+    private final By USERNAME_FIELD = By.cssSelector("input[placeholder='Username']");
+    private final By PASSWORD_FIELD = By.cssSelector("input[placeholder='Password']");
+    private final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
+    private final By LOGIN_ERROR = By.cssSelector("div[role='alert']");
 
 
     public LoginPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
-    public void enterUsername(String username){
-        driver.findElement(By.cssSelector(USERNAME_FIELD)).sendKeys(username);
+    public LoginPage enterUsername(String username){
+        type(USERNAME_FIELD, username);
+        return this;
     }
 
-    public void enterPassword(String password){
-        driver.findElement(By.cssSelector(PASSWORD_FIELD)).sendKeys(password);
+    public LoginPage enterPassword(String password){
+        type(PASSWORD_FIELD, password);
+        return this;
     }
 
-    public void clickLogin(){
-        driver.findElement(By.cssSelector(LOGIN_BUTTON)).click();
+    public DashboardPage clickLoginSuccess(){
+        click(LOGIN_BUTTON);
+        return new DashboardPage(driver);
     }
 
-    public String getLoginError(){
-        return driver.findElement(By.cssSelector(LOGIN_ERROR)).getText();
+    public LoginPage clickLoginExpectingFailure(){
+        click(LOGIN_BUTTON);
+        return this;
+    }
+
+    public String getErrorMessage(){
+        return getText(LOGIN_ERROR);
     }
 
 
