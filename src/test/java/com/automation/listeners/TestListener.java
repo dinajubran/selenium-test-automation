@@ -1,5 +1,6 @@
-package com.automation.utils;
+package com.automation.listeners;
 
+import com.automation.utils.ExtentManager;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;

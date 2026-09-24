@@ -15,6 +15,11 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
+    public LoginPage open(String url) {
+        driver.get(url);
+        return this;
+    }
+
     public LoginPage enterUsername(String username){
         type(USERNAME_FIELD, username);
         return this;
