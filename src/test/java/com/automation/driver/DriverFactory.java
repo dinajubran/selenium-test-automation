@@ -19,8 +19,7 @@ public final class DriverFactory {
             case "chrome":
             default:
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--disable-notifications", "--start-maximized");
-                // chromeOptions.addArguments("--headless=new"); // Ideal for CI/CD
+                chromeOptions.addArguments("--disable-notifications", "--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--window-size=1920,1080");
                 return new ChromeDriver(chromeOptions);
         }
     }
