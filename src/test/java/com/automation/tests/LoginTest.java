@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 
 public class LoginTest extends BaseTest {
-    final String LOGIN_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
     @Test
     public void testLoginWithValidUsernameAndValidPassword(){

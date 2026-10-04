@@ -17,9 +17,6 @@ public abstract class BaseTest {
     @Parameters("browser")
     @BeforeMethod
     public void setUp(@Optional("chrome") String browser) {
-//        String username = ConfigReader.get("ADMIN_USERNAME");
-//        String password = ConfigReader.get("ADMIN_PASSWORD");
-//        String url = ConfigReader.get("LOGIN_URL");
 
         if (LOGIN_URL == null || ADMIN_USERNAME == null || ADMIN_PASSWORD == null) {
             throw new IllegalStateException("LOGIN_URL or ADMIN_USERNAME or ADMIN_PASSWORD environment variable is not set.");

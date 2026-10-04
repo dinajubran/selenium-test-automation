@@ -26,8 +26,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         testNode.get().log(Status.FAIL, "Test Failed: " + result.getThrowable());
-        // To attach Base64 screenshot:
-        // testNode.get().addScreenCaptureFromBase64String(base64String, "Failure Screenshot");
     }
 
     @Override
@@ -37,6 +35,6 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        extent.flush(); // Writes output to file
+        extent.flush();
     }
 }
