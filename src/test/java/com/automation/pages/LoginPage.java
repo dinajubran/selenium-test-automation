@@ -3,16 +3,18 @@ package com.automation.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+
 public class LoginPage extends BasePage{
 
-    private final By USERNAME_FIELD = By.cssSelector("input[placeholder='Username']");
-    private final By PASSWORD_FIELD = By.cssSelector("input[placeholder='Password']");
-    private final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
-    private final By LOGIN_ERROR = By.cssSelector("div[role='alert']");
+    private static final By USERNAME_FIELD = By.cssSelector("input[name='username']");
+    private static final By PASSWORD_FIELD = By.cssSelector("input[name='password']");
+    private static final By LOGIN_BUTTON = By.cssSelector("button[type='submit']");
+    private static final By LOGIN_ERROR = By.cssSelector("div[role='alert']");
 
 
-    public LoginPage(WebDriver driver){
-        super(driver);
+    public LoginPage(WebDriver driver, Duration timeout){
+        super(driver, timeout);
     }
 
     public LoginPage open(String url) {
@@ -30,12 +32,16 @@ public class LoginPage extends BasePage{
         return this;
     }
 
-    public DashboardPage clickLoginSuccess(){
+    public DashboardPage loginExpectingSuccess(String username, String password){
+        enterUsername(username);
+        enterPassword(password);
         click(LOGIN_BUTTON);
-        return new DashboardPage(driver);
+        return new DashboardPage(driver, timeout);
     }
 
-    public LoginPage clickLoginExpectingFailure(){
+    public LoginPage loginExpectingFailure(String username, String password){
+        enterUsername(username);
+        enterPassword(password);
         click(LOGIN_BUTTON);
         return this;
     }

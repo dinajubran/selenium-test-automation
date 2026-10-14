@@ -4,17 +4,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+
 public class DashboardPage extends BasePage{
 
-    private final By MAIN_CONTENT_AREA = By.cssSelector(".oxd-layout-context");
+    private static final By DASHBOARD_HEADING = By.xpath("//h6[normalize-space()='Dashboard']");
 
-    public DashboardPage(WebDriver driver){
-        super(driver);
+    public DashboardPage(WebDriver driver, Duration timeout){
+        super(driver, timeout);
     }
 
     public boolean isDisplayed(){
     try {
-        return waitAndFind(MAIN_CONTENT_AREA).isDisplayed();
+        return waitAndFind(DASHBOARD_HEADING).isDisplayed();
     } catch (TimeoutException e){
         return false;
     }

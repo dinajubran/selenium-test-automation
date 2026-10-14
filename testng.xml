@@ -3,7 +3,6 @@
     <listeners>
         <listener class-name="com.automation.listeners.TestListener" />
     </listeners>
-    <parameter name="browser" value="chrome"/>
     <test name="Login">
         <classes>
             <class name="com.automation.tests.LoginTest"/>

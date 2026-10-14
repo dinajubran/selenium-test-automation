@@ -8,21 +8,26 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 public final class DriverFactory {
 
-    static String[] browserOptions = {"--disable-notifications", "--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--window-size=1920,1080"};
     private DriverFactory() {}
 
-    public static WebDriver createDriver(String browser) {
+    public static WebDriver createDriver(String browser, boolean headless) {
         switch (browser.toLowerCase().trim()) {
             case "firefox":
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments(browserOptions);
+                if (headless) {
+                    firefoxOptions.addArguments("-headless");
+                }
                 return new FirefoxDriver(firefoxOptions);
 
             case "chrome":
-            default:
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments(browserOptions);
+                chromeOptions.addArguments("--disable-notifications", "--window-size=1920,1080");
+                if (headless) {
+                    chromeOptions.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+                }
                 return new ChromeDriver(chromeOptions);
+            default:
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
     }
 }
