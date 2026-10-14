@@ -5,34 +5,27 @@ import com.automation.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.UUID;
-
 
 public class LoginTest extends BaseTest {
 
     @Test
     public void testLoginWithValidUsernameAndValidPassword(){
-        LoginPage loginPage = new LoginPage(getDriver(), config.timeout());
-        DashboardPage dashboardPage = loginPage.open(config.loginUrl())
-                .loginExpectingSuccess(config.adminUsername(), config.adminPassword());
-        Assert.assertTrue(dashboardPage.isDisplayed(), "Dashboard should be displayed after a valid login");
+        LoginPage loginPage = new LoginPage(getDriver());
+        DashboardPage dashboardPage = loginPage.open(LOGIN_URL).enterUsername(ADMIN_USERNAME).enterPassword(ADMIN_PASSWORD).clickLoginSuccess();
+        Assert.assertTrue(dashboardPage.isDisplayed());
     }
 
     @Test
     public void testLoginWithValidUsernameAndInvalidPassword(){
-        LoginPage loginPage = new LoginPage(getDriver(), config.timeout());
-        loginPage.open(config.loginUrl())
-                .loginExpectingFailure(config.adminUsername(), "invalid-" + UUID.randomUUID());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials",
-                "A valid username with an invalid password should be rejected");
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.open(LOGIN_URL).enterUsername(ADMIN_USERNAME).enterPassword("admin1234").clickLoginExpectingFailure();
+        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials");
     }
 
     @Test
     public void testLoginWithInvalidUsernameAndInvalidPassword(){
-        LoginPage loginPage = new LoginPage(getDriver(), config.timeout());
-        loginPage.open(config.loginUrl())
-                .loginExpectingFailure("invalid-" + UUID.randomUUID(), "invalid-" + UUID.randomUUID());
-        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials",
-                "Invalid credentials should be rejected");
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.open(LOGIN_URL).enterUsername("AdminUser").enterPassword("admin1234").clickLoginExpectingFailure();
+        Assert.assertEquals(loginPage.getErrorMessage(), "Invalid credentials");
     }
 }

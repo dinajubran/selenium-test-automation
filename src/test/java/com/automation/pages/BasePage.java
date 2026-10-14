@@ -11,12 +11,10 @@ import java.time.Duration;
 public class BasePage {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
-    protected final Duration timeout;
 
-    protected BasePage(WebDriver driver, Duration timeout) {
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
-        this.timeout = timeout;
-        wait = new WebDriverWait(driver, timeout);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     protected WebElement waitAndFind(By locator) {

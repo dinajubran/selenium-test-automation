@@ -1,27 +1,19 @@
 name: run selenium tests
 on: [push, pull_request]
 
-permissions:
-  contents: read
-
-concurrency:
-  group: selenium-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
 
     steps:
       - name: check out repository
         uses: actions/checkout@v4
 
-      - name: setup jdk 21
+      - name: setup jdk 26
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '26'
           cache: 'maven'
 
       - name: run tests
@@ -29,16 +21,4 @@ jobs:
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-        run: ./mvnw --batch-mode clean test
-
-      - name: upload test evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: selenium-test-evidence-${{ github.run_attempt }}
-          path: |
-            reports/
-            screenshots/
-            target/surefire-reports/
-          if-no-files-found: warn
-          retention-days: 14
+        run: mvn clean test

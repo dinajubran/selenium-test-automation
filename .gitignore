@@ -5,12 +5,14 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
-.idea/
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
 *.iws
 *.iml
 *.ipr
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/vcs.xml
 .env
-.env.local
-reports/
-screenshots/
-*.log
